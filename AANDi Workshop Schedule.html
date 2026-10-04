@@ -1,0 +1,397 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>AANDi Workshop Schedule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ripple-backed header with big dates and a countdown, a sticky 7-day strip, then a day panel with a proportional time strip above a rail timeline. Palette is Dal Lake teal, chinar red and saffron. */
+:root {
+  --bg: #E8F0EF;
+  --surface: #F6FAF9;
+  --fg: #0E2B30;
+  --muted: #476265;
+  --line: #C3D4D2;
+  --chinar: #B3261E;
+  --lake: #1B6B75;
+  --saffron: #B97508;
+  --stone: #5E6F72;
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1A1E; --surface: #11272C; --fg: #E4EFED; --muted: #93AEB0; --line: #223F45;
+    --chinar: #FF7A66; --lake: #5FC3CC; --saffron: #EBAE45; --stone: #8CA3A6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1A1E; --surface: #11272C; --fg: #E4EFED; --muted: #93AEB0; --line: #223F45;
+  --chinar: #FF7A66; --lake: #5FC3CC; --saffron: #EBAE45; --stone: #8CA3A6;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  padding-inline: 16px;
+  padding-block: 0 48px;
+}
+.wrap { max-width: 960px; margin-inline: auto; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--chinar); outline-offset: 2px; }
+
+.k-session { --kc: var(--lake); }
+.k-ceremony { --kc: var(--chinar); }
+.k-outing { --kc: var(--saffron); }
+.k-break { --kc: var(--stone); }
+.k-logistics { --kc: var(--fg); }
+
+/* Header */
+.hero { position: relative; overflow: clip; padding-block: 36px 28px; }
+.ripples { position: absolute; right: -90px; top: -70px; width: 340px; height: 340px; pointer-events: none; }
+.ripples circle { fill: none; stroke: var(--lake); stroke-width: 1.5; transform-origin: 170px 170px; animation: ripple 7s ease-out infinite; opacity: 0; }
+.ripples circle:nth-child(2) { animation-delay: 1.75s; }
+.ripples circle:nth-child(3) { animation-delay: 3.5s; }
+.ripples circle:nth-child(4) { animation-delay: 5.25s; }
+@keyframes ripple { 0% { transform: scale(.25); opacity: .55; } 100% { transform: scale(1); opacity: 0; } }
+.hero > *:not(.ripples) { position: relative; }
+.eyebrow { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; max-width: 46ch; }
+h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.6rem, 4.6vw, 2.7rem); line-height: 1.1; letter-spacing: -.01em; margin: 0 0 22px; max-width: 20ch; text-wrap: balance; }
+.daterow { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px 32px; }
+.bigdate { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; min-width: 0; }
+.bigdate .nums { font-family: var(--font-display); font-weight: 700; font-size: clamp(4.2rem, 17vw, 9rem); line-height: .85; letter-spacing: -.04em; color: var(--chinar); font-variant-numeric: tabular-nums; }
+.bigdate .mon { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1rem, 3vw, 1.6rem); line-height: 1.15; }
+.bigdate .mon span { display: block; color: var(--muted); font-family: var(--font-body); font-size: .8rem; font-weight: 400; margin-top: 4px; }
+.cd { min-width: 0; }
+.cd-label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.cd-cells { display: flex; gap: 8px; }
+.cd-cell { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; min-width: 66px; text-align: center; }
+.cd-cell b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cd-cell i { font-style: normal; font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.cd-msg { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; margin: 0; }
+.venue { margin: 22px 0 0; color: var(--muted); font-size: 14px; max-width: 60ch; }
+.venue strong { color: var(--fg); font-weight: 600; }
+
+/* Day strip */
+.daynav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.chip { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+.chip:hover { border-color: var(--fg); }
+.chip .wd { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.chip .dn { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.chip[aria-selected="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); transform: translateY(-2px); }
+.chip[aria-selected="true"] .wd { color: var(--bg); opacity: .75; }
+.chip .prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--chinar); transform: scaleX(0); transform-origin: left; }
+.chip.playing .prog { animation: prog 6s linear forwards; }
+@keyframes prog { to { transform: scaleX(1); } }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-block: 18px 6px; }
+.play { display: inline-flex; align-items: center; gap: 8px; background: var(--fg); color: var(--bg); border: 0; border-radius: 999px; padding: 8px 16px 8px 12px; font-weight: 500; }
+.play svg { width: 14px; height: 14px; fill: currentColor; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; background: var(--kc); }
+
+/* Day panel */
+.dayhead { padding-block: 14px 18px; }
+.dayhead .eyebrow { margin-bottom: 6px; }
+.dayhead h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.1; letter-spacing: -.02em; margin: 0; }
+.dayhead .theme { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+
+.strip { margin-bottom: 30px; }
+.strip-bar { position: relative; height: 44px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg { position: absolute; top: 0; bottom: 0; border: 0; padding: 0; border-radius: 0; background: var(--kc); box-shadow: 0 0 0 1.5px var(--surface); transform-origin: left; animation: grow .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 70ms); transition: filter .2s; }
+.seg.k-break { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--kc) 55%, var(--surface)) 0 5px, var(--surface) 5px 10px); }
+.seg:hover, .seg.on { filter: brightness(1.18) saturate(1.1); }
+@keyframes grow { from { transform: scaleX(0); } }
+.ticks { position: relative; height: 20px; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.nohours { height: 44px; border: 1px dashed var(--line); border-radius: 8px; display: flex; align-items: center; padding-inline: 14px; color: var(--muted); font-size: 13.5px; background: repeating-linear-gradient(135deg, transparent 0 8px, color-mix(in srgb, var(--line) 35%, transparent) 8px 9px); }
+
+/* Timeline */
+.tl { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.tl::before { content: ""; position: absolute; left: 13px; top: 22px; bottom: 22px; width: 2px; background: var(--line); transform-origin: top; animation: draw .8s ease-out both; }
+@keyframes draw { from { transform: scaleY(0); } }
+.item { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; animation: rise .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 70ms + 120ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+.dot { position: relative; z-index: 1; width: 14px; height: 14px; margin: 19px 0 0 6px; border-radius: 50%; background: var(--bg); border: 3px solid var(--kc); }
+.item.now .dot { background: var(--chinar); border-color: var(--chinar); }
+.item.now .dot::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--chinar); animation: pulse 1.8s ease-out infinite; }
+@keyframes pulse { from { transform: scale(.5); opacity: .8; } to { transform: scale(1.4); opacity: 0; } }
+.card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 15px; transition: border-color .25s, box-shadow .25s; }
+.item.now .card { border-color: var(--chinar); }
+.item.past .card { opacity: .6; }
+.item.flash .card { animation: flash 1.2s ease-out; }
+@keyframes flash { 0% { box-shadow: 0 0 0 0 var(--kc); } 30% { box-shadow: 0 0 0 4px var(--kc); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 8px; }
+.time { font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.dur { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; padding: 2px 9px 2px 7px; border-radius: 999px; background: color-mix(in srgb, var(--kc) 15%, var(--surface)); }
+.tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--kc); }
+.now-pill { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: var(--chinar); color: var(--bg); padding: 2px 8px; border-radius: 999px; }
+.card h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; line-height: 1.3; margin: 0; text-wrap: pretty; }
+.who { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+.who strong { color: var(--fg); font-weight: 600; }
+.note { margin: 8px 0 0; color: var(--muted); font-size: 14px; max-width: 62ch; }
+.item.k-break .card { background: transparent; border-style: dashed; padding: 9px 16px; }
+.item.k-break .meta { margin: 0; }
+.item.k-break h3 { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--muted); }
+.item.k-break .card { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+
+footer { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px 24px; }
+footer div { min-width: 0; }
+footer dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+footer dd { margin: 0; font-size: 14px; }
+.fine { grid-column: 1 / -1; color: var(--muted); font-size: 13px; margin: 0; }
+
+@media (max-width: 520px) {
+  .chip .dn { font-size: 1.15rem; }
+  .chip .wd { font-size: 9.5px; }
+  .card { padding: 12px 13px 13px; }
+  .cd-cell { min-width: 58px; padding: 7px 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <svg class="ripples" viewBox="0 0 340 340" aria-hidden="true"><circle cx="170" cy="170" r="165"/><circle cx="170" cy="170" r="165"/><circle cx="170" cy="170" r="165"/><circle cx="170" cy="170" r="165"/></svg>
+    <p class="eyebrow">Digital transformation for Neurodiversity Inclusion in Africa and Asia · European Commission</p>
+    <h1>International Workshop on Digital Wellbeing &amp; Inclusion for Neurodiversity</h1>
+    <div class="daterow">
+      <div class="bigdate">
+        <div class="nums">18–24</div>
+        <div class="mon">October 2026<span>Tentative schedule</span></div>
+      </div>
+      <div class="cd" id="cd" aria-live="polite"></div>
+    </div>
+    <p class="venue"><strong>Gandhi Bhawan, University of Kashmir</strong>, Srinagar, J&amp;K-190006. Organised by the Department of Psychology.</p>
+  </header>
+
+  <nav class="daynav" aria-label="Workshop days">
+    <div class="days" id="days" role="tablist"></div>
+  </nav>
+
+  <div class="controls">
+    <button class="play" id="play" type="button"></button>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <main id="panel" role="tabpanel" aria-live="polite"></main>
+
+  <footer>
+    <div><dl style="margin:0"><dt>Convener</dt><dd>Prof. Humera Shafi</dd></dl></div>
+    <div><dl style="margin:0"><dt>Organising Secretary</dt><dd>Prof. Shawkat Ahmad Shah</dd></dl></div>
+    <div><dl style="margin:0"><dt>Coordinator</dt><dd>Dr. Mohd. Muzamil</dd></dl></div>
+    <p class="fine">All times are India Standard Time (IST). This is the tentative programme and may change.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var IST = '+05:30';
+  var KIND = { session: 'Session', ceremony: 'Ceremony', outing: 'Outing or visit', 'break': 'Break', logistics: 'Logistics' };
+  var DAYS = [
+    { d: 18, wd: 'Sun', full: 'Sunday', theme: 'Registration and orientation', items: [
+      { s: '10:00', e: '16:00', k: 'logistics', t: 'Registration of participants and orientation sessions' } ] },
+    { d: 19, wd: 'Mon', full: 'Monday', theme: 'Inaugural day', items: [
+      { s: '10:00', e: '11:30', k: 'ceremony', t: 'Inaugural session' },
+      { s: '11:30', e: '13:00', k: 'session', t: 'Research outputs of the Centre for Neurodiversity, OP Jindal University, with special reference to digital wellbeing and inclusion of the neurodivergent population', who: 'Prof. Deepali Taneja', org: 'OP Jindal University, Haryana' },
+      { s: '13:00', e: '14:00', k: 'break', t: 'Lunch' },
+      { s: '14:00', e: '15:30', k: 'session', t: 'Advancing wellbeing through neuroinclusive research: the science of learning and memory', who: 'Prof. Bala G', org: 'IISc, Bangalore' },
+      { s: '15:30', e: '17:00', k: 'outing', t: 'Networking and interaction session of research teams of the beneficiaries, followed by a boat ride', note: 'A curated cultural experience highlighting local traditions and floating gardens.' } ] },
+    { d: 20, wd: 'Tue', full: 'Tuesday', theme: 'Assessment tools and neurodevelopment', items: [
+      { s: '10:00', e: '11:30', k: 'session', t: 'Baseline survey tools for assessment of neurodiversity, with special reference to free open source software for promoting digital wellbeing and inclusion for neurodiversity', who: 'Project Team', org: 'University of Kashmir' },
+      { s: '11:30', e: '13:00', k: 'session', t: 'Epigenetics of neurodevelopmental issues', who: 'Prof. Altaf Ahmad Bhat', org: 'CIRI, University of Kashmir' },
+      { s: '13:00', e: '14:00', k: 'break', t: 'Lunch' },
+      { s: '14:00', e: '15:30', k: 'session', t: 'Prevalence of neurodevelopmental issues in J&K', who: 'Project Team', org: 'IMHANS J&K' },
+      { s: '15:30', e: '17:00', k: 'outing', t: 'University of Kashmir campus tour', note: 'Visit to the CIRI Lab, Allama Iqbal Library, Botanical Garden and more.', who: 'Facilitated by Prof. Altaf Ahmad Bhat', org: 'CIRI, University of Kashmir' } ] },
+    { d: 21, wd: 'Wed', full: 'Wednesday', theme: 'Out in the valley', items: [
+      { s: '09:00', e: '18:00', k: 'outing', t: 'Kashmir Valley Excursion' } ] },
+    { d: 22, wd: 'Thu', full: 'Thursday', theme: 'Expert panel and lab visit', items: [
+      { s: '10:00', e: '11:30', k: 'session', t: 'Panel discussion by experts from ICSSR, ICMR and DST' },
+      { s: '11:30', e: '13:00', k: 'session', t: 'Blended mobility research presentations by participants from Kenya, Finland, Ethiopia and India' },
+      { s: '13:00', e: '14:00', k: 'break', t: 'Lunch' },
+      { s: '14:00', e: '17:00', k: 'outing', t: 'Visit to the Psychology Laboratory at IMHANS, J&K' } ] },
+    { d: 23, wd: 'Fri', full: 'Friday', theme: 'Training and valedictory', items: [
+      { s: '10:00', e: '11:30', k: 'session', t: 'Neurodiversity training orientation session', who: 'Susannah Otieno-Leppänen', org: 'University of Jyväskylä' },
+      { s: '11:30', e: '13:00', k: 'session', t: 'Research insights from the Psychophysiological Laboratory, IIT Bombay', who: 'Prof. Aziz-ud-Din', org: 'IIT Bombay' },
+      { s: '13:00', e: '14:00', k: 'break', t: 'Lunch' },
+      { s: '14:00', e: '15:30', k: 'session', t: 'Digital wellbeing and inclusion for neurodiversity', who: 'Prof. Pavo Leppanen', org: 'University of Jyväskylä' },
+      { s: '15:30', e: '17:00', k: 'ceremony', t: 'Valedictory session' } ] },
+    { d: 24, wd: 'Sat', full: 'Saturday', theme: 'Project team meeting', items: [
+      { k: 'logistics', t: 'Meeting with the project team to decide the further course of action', note: 'No time is listed in the tentative schedule.' } ] }
+  ];
+
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var mins = function (t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; };
+  var f12 = function (t) { var p = t.split(':'); var h = +p[0]; var ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return h + ':' + p[1] + ' ' + ap; };
+  var dur = function (a, b) { var m = mins(b) - mins(a), h = Math.floor(m / 60), r = m % 60; return (h ? h + ' h' : '') + (h && r ? ' ' : '') + (r ? r + ' min' : ''); };
+  var at = function (d, t) { return new Date('2026-10-' + d + 'T' + t + ':00' + IST).getTime(); };
+  var $ = function (id) { return document.getElementById(id); };
+
+  var START = at(18, '10:00'), END = at(24, '18:00');
+  var cur = 0, timer = null, playing = false;
+
+  function istDay(now) { return new Date(now + 5.5 * 3600 * 1000).getUTCDate(); }
+
+  // Pick today's day when the workshop is under way.
+  (function () {
+    var now = Date.now();
+    if (now >= START && now <= END) {
+      var d = istDay(now) - 18;
+      if (d >= 0 && d < 7) cur = d;
+    }
+  })();
+
+  // Day chips
+  var daysEl = $('days');
+  daysEl.innerHTML = DAYS.map(function (day, i) {
+    return '<button class="chip" role="tab" type="button" data-i="' + i + '" aria-selected="false" aria-label="' + day.full + ' ' + day.d + ' October"><span class="wd">' + day.wd + '</span><span class="dn">' + day.d + '</span><span class="prog"></span></button>';
+  }).join('');
+  var chips = Array.prototype.slice.call(daysEl.querySelectorAll('.chip'));
+
+  function renderStrip(day) {
+    var timed = day.items.filter(function (i) { return i.s; });
+    if (!timed.length) return '<div class="strip"><div class="nohours">No fixed hours are listed for this day.</div></div>';
+    var lo = Math.floor(Math.min.apply(null, timed.map(function (i) { return mins(i.s); })) / 60) * 60;
+    var hi = Math.ceil(Math.max.apply(null, timed.map(function (i) { return mins(i.e); })) / 60) * 60;
+    var span = hi - lo;
+    var segs = '';
+    day.items.forEach(function (it, n) {
+      if (!it.s) return;
+      var l = (mins(it.s) - lo) / span * 100, w = (mins(it.e) - mins(it.s)) / span * 100;
+      segs += '<button type="button" class="seg k-' + it.k + '" style="left:' + l + '%;width:' + w + '%;--i:' + n + '" data-n="' + n + '" aria-label="' + it.t.replace(/"/g, '') + ', ' + f12(it.s) + ' to ' + f12(it.e) + '"></button>';
+    });
+    var ticks = '';
+    for (var m = lo; m <= hi; m += 60) {
+      var h = Math.floor(m / 60) % 12 || 12;
+      ticks += '<span style="left:' + ((m - lo) / span * 100) + '%">' + h + '</span>';
+    }
+    return '<div class="strip"><div class="strip-bar">' + segs + '</div><div class="ticks" aria-hidden="true">' + ticks + '</div></div>';
+  }
+
+  function renderItems(day) {
+    return '<ol class="tl">' + day.items.map(function (it, n) {
+      var attrs = it.s ? ' data-s="' + at(day.d, it.s) + '" data-e="' + at(day.d, it.e) + '"' : '';
+      var time = it.s ? f12(it.s) + ' – ' + f12(it.e) : 'Time not listed';
+      var who = it.who ? '<p class="who"><strong>' + it.who + '</strong>' + (it.org ? ' · ' + it.org : '') + '</p>' : '';
+      var note = it.note ? '<p class="note">' + it.note + '</p>' : '';
+      return '<li class="item k-' + it.k + '" style="--i:' + n + '" data-n="' + n + '"' + attrs + '><span class="dot"></span><article class="card"><div class="meta"><span class="time">' + time + '</span>' +
+        (it.s ? '<span class="dur">' + dur(it.s, it.e) + '</span>' : '') + '<span class="tag">' + KIND[it.k] + '</span><span class="now-pill" hidden>Now</span></div><h3>' + it.t + '</h3>' + who + note + '</article></li>';
+    }).join('') + '</ol>';
+  }
+
+  function render() {
+    var day = DAYS[cur];
+    chips.forEach(function (c, i) { c.setAttribute('aria-selected', i === cur ? 'true' : 'false'); c.tabIndex = i === cur ? 0 : -1; });
+    var kinds = [];
+    day.items.forEach(function (i) { if (kinds.indexOf(i.k) < 0) kinds.push(i.k); });
+    $('legend').innerHTML = kinds.map(function (k) { return '<span class="k-' + k + '"><i></i>' + KIND[k] + '</span>'; }).join('');
+    $('panel').innerHTML = '<div class="dayhead"><p class="eyebrow">Day ' + (cur + 1) + ' of 7</p><h2>' + day.full + ', ' + day.d + ' October</h2><p class="theme">' + day.theme + '</p></div>' + renderStrip(day) + renderItems(day);
+    restartProgress();
+    updateLive();
+  }
+
+  function restartProgress() {
+    chips.forEach(function (c) { c.classList.remove('playing'); });
+    if (playing) { void chips[cur].offsetWidth; chips[cur].classList.add('playing'); }
+  }
+
+  function updateLive() {
+    var now = Date.now();
+    var items = $('panel').querySelectorAll('.item[data-s]');
+    Array.prototype.forEach.call(items, function (li) {
+      var s = +li.getAttribute('data-s'), e = +li.getAttribute('data-e');
+      var isNow = now >= s && now < e, isPast = now >= e;
+      li.classList.toggle('now', isNow);
+      li.classList.toggle('past', isPast);
+      li.querySelector('.now-pill').hidden = !isNow;
+    });
+  }
+
+  function select(i, fromUser) {
+    cur = (i + 7) % 7;
+    if (fromUser && playing) stop();
+    render();
+  }
+
+  // Autoplay
+  var playBtn = $('play');
+  function paintPlay() {
+    playBtn.innerHTML = playing
+      ? '<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1"/><rect x="8.5" y="1" width="3.5" height="12" rx="1"/></svg>Pause'
+      : '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 1.2v11.6a.6.6 0 0 0 .9.5l9-5.8a.6.6 0 0 0 0-1L3.4.7a.6.6 0 0 0-.9.5z"/></svg>Play the week';
+  }
+  function start() {
+    playing = true; paintPlay();
+    restartProgress();
+    timer = setInterval(function () { select(cur + 1, false); }, 6000);
+  }
+  function stop() {
+    playing = false; paintPlay();
+    clearInterval(timer); timer = null;
+    chips.forEach(function (c) { c.classList.remove('playing'); });
+  }
+  playBtn.addEventListener('click', function () { playing ? stop() : start(); });
+
+  daysEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.chip');
+    if (b) select(+b.getAttribute('data-i'), true);
+  });
+  daysEl.addEventListener('keydown', function (ev) {
+    if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') {
+      ev.preventDefault();
+      select(cur + (ev.key === 'ArrowRight' ? 1 : -1), true);
+      chips[cur].focus();
+    }
+  });
+
+  // Strip segment click scrolls to and flashes its card
+  $('panel').addEventListener('click', function (ev) {
+    var seg = ev.target.closest('.seg');
+    if (!seg) return;
+    var li = $('panel').querySelector('.item[data-n="' + seg.getAttribute('data-n') + '"]');
+    if (!li) return;
+    li.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash');
+  });
+  $('panel').addEventListener('mouseover', function (ev) {
+    var seg = ev.target.closest('.seg');
+    var cards = $('panel').querySelectorAll('.item.flash');
+    Array.prototype.forEach.call(cards, function (c) { if (!seg) c.classList.remove('flash'); });
+  });
+
+  // Countdown
+  function tick() {
+    var now = Date.now(), el = $('cd');
+    if (now < START) {
+      var diff = START - now;
+      var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4);
+      el.innerHTML = '<p class="cd-label">Opens Sunday 18 October, 10:00 AM</p><div class="cd-cells"><div class="cd-cell"><b>' + d + '</b><i>days</i></div><div class="cd-cell"><b>' + pad(h) + '</b><i>hours</i></div><div class="cd-cell"><b>' + pad(m) + '</b><i>min</i></div></div>';
+    } else if (now <= END) {
+      var n = istDay(now) - 17;
+      el.innerHTML = '<p class="cd-label">Workshop under way</p><p class="cd-msg">Day ' + Math.min(Math.max(n, 1), 7) + ' of 7</p>';
+    } else {
+      el.innerHTML = '<p class="cd-label">Workshop</p><p class="cd-msg">Concluded 24 October</p>';
+    }
+    updateLive();
+  }
+
+  paintPlay();
+  render();
+  tick();
+  setInterval(tick, 30000);
+})();
+</script>
+
+</body></html>
